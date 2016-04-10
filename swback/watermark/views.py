@@ -25,6 +25,7 @@ def index(request):
             from_email='test@sparkpostbox.com',
             subject='Your Watermarked Document',
         )
+        print(response)
 
     context = {
         'plainText': plainText,
