@@ -7,7 +7,7 @@ class SynonymWatermark:
         self.text = txt
         self.complexity = complexity
 
-    def notProperWord(word):
+    def notProperWord(self, word):
         return word[0].islower()
 
 
@@ -27,8 +27,7 @@ class SynonymWatermark:
         for i in range(len(tokens)):
             weight = weight + rnd.random() * self.complexity
 
-            if weight > 1 and notProperWord(tokens[i]):
-                print tokens[i]
+            if weight > 1 and self.notProperWord(tokens[i]):
                 synonym = "" #send tags[i] to thesaurus
                 tokens[i] = synonym
                 weight = 0
