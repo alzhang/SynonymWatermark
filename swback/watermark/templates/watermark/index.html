@@ -1,0 +1,18 @@
+<style>
+textarea {
+  resize: none;
+}
+</style>
+
+<h1> StegaMark </h1>
+<form method="post">
+{% csrf_token %}
+<textarea rows="20" cols="50" name="plainText">
+{{ plainText }}
+</textarea>
+<textarea rows="20" cols="50" name="watermarkText">
+{{ watermarkText }}
+</textarea>
+<br>
+<input type="submit" value="Apply Watermark" />
+</form>
