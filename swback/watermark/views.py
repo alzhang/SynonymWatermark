@@ -6,6 +6,7 @@ import SMark
 
 def index(request):
     plainText = request.POST.get('plainText', "")
+    email = request.POST.get('email',"")
     complexity = 0
     try :
         complexity = float(request.POST.get('complexityFactor', ".5"))
