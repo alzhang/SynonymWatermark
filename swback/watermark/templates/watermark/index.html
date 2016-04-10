@@ -22,12 +22,12 @@ textarea {
       <table>
         <tr>
           <td>
-      <textarea rows="30" cols="59" id="plain" name="plainText">
+      <textarea rows="15" cols="59" id="plain" name="plainText">
         {{ plainText }}
       </textarea>
     </td>
     <td>
-      <textarea rows="30" cols="59" id="watermark" name="watermarkText">
+      <textarea rows="15" cols="59" id="watermark" name="watermarkText">
         {{ watermarkText }}
       </textarea>
     </td>
@@ -39,7 +39,7 @@ textarea {
       <input type="submit" value="Apply Watermark" />
     </form>
   </div>
-  <div id="outputdiv"></div>
+  <div id="outputdiv" class="well"></div>
 </div>
 </div>
 <SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
@@ -48,18 +48,14 @@ var dmp = new diff_match_patch();
 function launch() {
   var text1 = document.getElementById('plain').value;
   var text2 = document.getElementById('watermark').value;
-  dmp.Diff_Timeout = parseFloat(document.getElementById('timeout').value);
-  dmp.Diff_EditCost = parseFloat(document.getElementById('editcost').value);
 
-  var ms_start = (new Date()).getTime();
   var d = dmp.diff_main(text1, text2);
-  var ms_end = (new Date()).getTime();
 
   dmp.diff_cleanupEfficiency(d);
   var ds = dmp.diff_prettyHtml(d);
   document.getElementById('outputdiv').innerHTML = ds;
 }
-launch();
+window.onload = launch;
 </SCRIPT>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </body>
