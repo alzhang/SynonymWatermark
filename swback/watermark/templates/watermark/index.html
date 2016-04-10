@@ -1,19 +1,70 @@
+<html>
+
+<head>
+<title>WordMark: Text Steganography</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<script type="text/javascript" language="JavaScript" src="diff_match_patch.js"></script>
+</head>
+<body>
+
 <style>
 textarea {
   resize: none;
 }
 </style>
 
-<h1> StegaMark </h1>
-<form method="post">
-{% csrf_token %}
-<textarea rows="20" cols="50" name="plainText">
-{{ plainText }}
-</textarea>
-<textarea rows="20" cols="50" name="watermarkText">
-{{ watermarkText }}
-</textarea>
-<br>
-Complexity factor: <input type = "text" name="complexityFactor"><br>
-<input type="submit" value="Apply Watermark" />
-</form>
+<div class="container">
+  <div class="jumbotron"><h1> WordMark </h1></div>
+<div>
+  <div class="well">
+    <form method="post">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td>
+      <textarea rows="30" cols="55" id="plain" name="plainText">
+        {{ plainText }}
+      </textarea>
+    </td>
+    <td>
+      <textarea rows="30" cols="55" id="watermark" name="watermarkText">
+        {{ watermarkText }}
+      </textarea>
+    </td>
+  </tr>
+</table>
+      <br>
+      Complexity factor: <input type = "text" name="complexityFactor"><br>
+      <input type="submit" value="Apply Watermark" />
+    </form>
+  </div>
+  <div id="outputdiv"></div>
+</div>
+</div>
+<SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript">
+var dmp = new diff_match_patch();
+
+function launch() {
+  var text1 = document.getElementById('plain').value;
+  var text2 = document.getElementById('watermark').value;
+  dmp.Diff_Timeout = parseFloat(document.getElementById('timeout').value);
+  dmp.Diff_EditCost = parseFloat(document.getElementById('editcost').value);
+
+  var ms_start = (new Date()).getTime();
+  var d = dmp.diff_main(text1, text2);
+  var ms_end = (new Date()).getTime();
+
+  if (document.getElementById('semantic').checked) {
+    dmp.diff_cleanupSemantic(d);
+  }
+  if (document.getElementById('efficiency').checked) {
+    dmp.diff_cleanupEfficiency(d);
+  }
+  var ds = dmp.diff_prettyHtml(d);
+  document.getElementById('outputdiv').innerHTML = ds + '<BR>Time: ' + (ms_end - ms_start) / 1000 + 's';
+}
+launch();
+</SCRIPT>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+</html>

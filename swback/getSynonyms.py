@@ -33,8 +33,6 @@ def loadWordNet():
 
 
 def getSynonym(net,word,pos):
-  print word
-  print pos
   if not(word in net[pos]):
     return None
   for syn in net[pos][word]:
@@ -44,7 +42,3 @@ def getSynonym(net,word,pos):
   #pick the most common of the words
 
 net = loadWordNet()
-print getSynonym(net,"love","a")
-print getSynonym(net,"black","a")
-print getSynonym(net,"arbitrary","a")
-print getSynonym(net,"aware","a")
